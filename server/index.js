@@ -18,7 +18,6 @@ function start () {
     server.listen(config.port);
 
     const io = SocketServer(server);
-
     const lobby = Lobby.create({ config });
 
     log('Listening on port ' + config.port);
@@ -31,10 +30,10 @@ function start () {
             });
 
             lobby.addClient(client);
+        });
 
-            client.on('error', (err) => {
-                log('Client error', err);
-            });
+        socket.on('error', (err) => {
+            log('Client error', err);
         });
     });
 }

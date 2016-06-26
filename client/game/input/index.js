@@ -1,34 +1,34 @@
 'use strict';
 
-const KeyboardState = require('./utils/keyboard');
+const Keyboard = require('./utils/keyboard');
 
 function inputHandler () {
-    const keyboard = new KeyboardState();
+    const keyboard = Keyboard.create();
 
     function getInput () {
         const inputs = [];
 
-        if (keyboard.pressed('A') || keyboard.pressed('left')) {
+        if (keyboard.isPressed('A') || keyboard.isPressed('left')) {
             inputs.push('l');
         }
 
-        if (keyboard.pressed('D') || keyboard.pressed('right')) {
+        if (keyboard.isPressed('D') || keyboard.isPressed('right')) {
             inputs.push('r');
         }
 
-        if (keyboard.pressed('S') || keyboard.pressed('down')) {
+        if (keyboard.isPressed('S') || keyboard.isPressed('down')) {
             inputs.push('d');
         }
 
-        if (keyboard.pressed('W') || keyboard.pressed('up')) {
+        if (keyboard.isPressed('W') || keyboard.isPressed('up')) {
             inputs.push('u');
         }
 
-        if (keyboard.pressed('space')) {
+        if (keyboard.isPressed('space')) {
             inputs.push('f');
         }
 
-        if (keyboard.pressed('R')) {
+        if (keyboard.isPressed('R')) {
             inputs.push('re');
         }
 

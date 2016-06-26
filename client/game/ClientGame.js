@@ -105,7 +105,7 @@ function ClientGame ({ options }) {
             });
 
             if (network) {
-                let data = 'i.';
+                let data = '';
 
                 data += input.join('-') + '.';
                 data += game.getTime().toString().replace('.', '-') + '.';

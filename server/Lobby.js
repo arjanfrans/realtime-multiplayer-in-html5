@@ -14,9 +14,6 @@ function Lobby ({ config }) {
         room.startGame();
     }
 
-    function onInput (client, parts) {
-    }
-
     function createGame (client) {
         const room = Room.create({
             owner: client,
@@ -106,20 +103,17 @@ function Lobby ({ config }) {
 
         client.on('message', (message) => {
             const parts = message.split('.');
-            const messageType = parts[0];
 
-            if (messageType === 'i') {
-                const inputCommands = parts[1].split('-');
-                const inputTime = parts[2].replace('-', '.');
-                const inputSeq = parts[3];
+            const inputCommands = parts[0].split('-');
+            const inputTime = parts[1].replace('-', '.');
+            const inputSeq = parts[2];
 
-                const room = client.getCurrentRoom();
+            const room = client.getCurrentRoom();
 
-                if (room && room.isGameStarted()) {
-                    room.receiveClientInput(client, inputCommands, inputTime, inputSeq);
-                } else {
-                    log('no room to receive input');
-                }
+            if (room && room.isGameStarted()) {
+                room.receiveClientInput(client, inputCommands, inputTime, inputSeq);
+            } else {
+                log('no room to receive input');
             }
         });
 
@@ -140,11 +134,6 @@ function Lobby ({ config }) {
             }
 
             clients.delete(client.getId());
-        });
-
-
-        client.on('error', (err) => {
-            log('Client error', err);
         });
     }
 
