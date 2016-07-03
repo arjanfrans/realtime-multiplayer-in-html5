@@ -12,6 +12,7 @@ New functionality compared to the original:
 * Non in-game interface uses React.
 * Login in to a given server with a name.
 * Fireing of bullets.
+* Player changes color when it is hit by a bullet.
 * Use webpack to build the client app.
 
 Changes compared to the original:

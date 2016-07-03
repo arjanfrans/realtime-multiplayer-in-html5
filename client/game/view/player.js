@@ -2,11 +2,14 @@
 
 const COLOR = 'rgba(255,255,255,0.1)';
 const INFO_COLOR = 'rgba(255,255,255,0.1)';
-const RELOAD_COLOR = '#660000';
+const HIT_COLOR = '#FF0000';
+const RELOAD_COLOR = '#005500';
 
 function draw (ctx, player, options = {}) {
     // Set the color for this player
-    if (player.isReloading && player.isReloading()) {
+    if (player.isHit()) {
+        ctx.fillStyle = HIT_COLOR;
+    } else if (player.isReloading()) {
         ctx.fillStyle = RELOAD_COLOR;
     } else {
         ctx.fillStyle = options.color || COLOR;

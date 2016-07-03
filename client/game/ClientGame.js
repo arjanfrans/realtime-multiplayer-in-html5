@@ -116,19 +116,11 @@ function ClientGame ({ options }) {
         }
     }
 
-    function processPlayerUpdates (playerData, player) {
-        player.setReloading(playerData.reloading);
-        player.setFireing(playerData.fireing);
-    }
-
     function processEventUpdates (data) {
         for (const eventData of data.events) {
-            const player = game.getPlayerById(eventData.firedBy);
-
             game.onNetworkEvent({
-                id: eventData.id,
-                name: eventData.name
-            }, player);
+                ...eventData
+            });
         }
     }
 
@@ -201,8 +193,6 @@ function ClientGame ({ options }) {
                 const player = game.getPlayerById(playerData.id);
 
                 player.setPosition(playerData.position.x, playerData.position.y);
-
-                processPlayerUpdates(playerData, player);
             }
 
             processEventUpdates(data);
@@ -323,7 +313,6 @@ function ClientGame ({ options }) {
                     player.setPosition(x, y);
                 }
 
-                processPlayerUpdates(target.players[i], player);
                 processEventUpdates(target);
             }
         }
