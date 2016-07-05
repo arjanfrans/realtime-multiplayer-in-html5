@@ -175,7 +175,7 @@ function ClientGame ({ options }) {
         }
     }
 
-    function onServerUpdate (data) {
+    function receiveNetworkUpdates (data) {
         serverTime = data.serverTime;
 
         // Update our local offset time from the last server update
@@ -388,7 +388,7 @@ function ClientGame ({ options }) {
         removePlayer,
         setNetwork,
         setLocalPlayer,
-        onServerUpdate,
+        receiveNetworkUpdates,
         setRenderer,
     }));
 }

@@ -18,6 +18,8 @@
   "dependencies": {
     "@arjanfrans/mainloop": "^2.0.0",
     "debug": "^2.2.0",
+    "fast-json-patch": "^1.0.0",
+    "msgpack-lite": "^0.1.20",
     "node-uuid": "^1.4.7",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
