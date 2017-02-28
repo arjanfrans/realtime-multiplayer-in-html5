@@ -23,6 +23,7 @@ function start () {
     log('Listening on port ' + config.port);
 
     io.sockets.on('connection', function (socket) {
+        // socket.binaryType = 'arraybuffer';
         socket.on('register', (data) => {
             const client = Client.create({
                 name: data.name,

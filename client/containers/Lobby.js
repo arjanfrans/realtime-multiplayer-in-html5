@@ -25,6 +25,8 @@ class Lobby extends React.Component {
     componentWillMount () {
         const socket = new SocketClient(this.props.serverUrl);
 
+        socket.binaryType = 'arraybuffer';
+
         socket.on('connect_error', () => {
             this.props.onLobbyError('Error connecting to server.');
             socket.close();

@@ -1,8 +1,10 @@
 'use strict';
 
 const Player = require('./ClientPlayer');
+const NetworkPackets = require('../../lib/NetworkPackets');
 
 function Network ({ game, socket, pingTimeout }) {
+    const networkPackets = NetworkPackets.create();
     let previousPing = 0;
     let netPing = 0;
     let netLatency = 0;
@@ -69,6 +71,12 @@ function Network ({ game, socket, pingTimeout }) {
         socket.send(data);
     }
 
+    function onServerUpdate (diff) {
+        const data = networkPackets.unpack(diff);
+
+        game.receiveNetworkUpdates(data);
+    }
+
     /**
      * Ping the server.
      */
@@ -89,7 +97,7 @@ function Network ({ game, socket, pingTimeout }) {
     socket.on('playerJoined', onPlayerJoined);
     socket.on('playerLeft', onPlayerLeft);
     socket.on('onLeftRoom', onDisconnect);
-    socket.on('onServerUpdate', game.onServerUpdate);
+    socket.on('onServerUpdate', onServerUpdate);
 
     socket.on('startGame', onStartGame);
     socket.on('error', onDisconnect);

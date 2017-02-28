@@ -1,6 +1,11 @@
 'use strict';
 
+const debug = require('debug');
+const log = debug('game:server/network');
+const NetworkPackets = require('../lib/NetworkPackets');
+
 function network () {
+    const networkPackets = NetworkPackets.create();
     const playerClients = new Map();
     const clientPlayers = new Map();
 
@@ -19,8 +24,16 @@ function network () {
     function sendUpdates (getStateForPlayer) {
         for (const player of clientPlayers.values()) {
             const client = playerClients.get(player);
+            let data = getStateForPlayer(player);
 
-            client.emit('onServerUpdate', getStateForPlayer(player));
+            data = networkPackets.pack(data, client.getId());
+
+            log('sending update', {
+                data,
+                size: data.length
+            });
+
+            client.emit('onServerUpdate', data);
         }
     }
 
