@@ -2,13 +2,13 @@
 
 const Timer = require('../lib/Timer');
 const GameNetwork = require('./Network');
-const AbstractGame = require('../lib/AbstractGame');
+const Player = require('./ServerPlayer');
 
-function ServerGame ({ options }) {
-    const game = AbstractGame.create({ options });
+function ServerGame (Game, { options, networkTimestep }) {
+    const game = Game.create({ options: JSON.parse(JSON.stringify(options)) });
     const network = GameNetwork();
     const networkLoop = Timer.create({
-        interval: options.networkTimestep,
+        interval: networkTimestep,
         onUpdate () {
             network.sendUpdates(game.getStateForPlayer);
 
@@ -20,12 +20,17 @@ function ServerGame ({ options }) {
         return network;
     }
 
-    function addPlayer (player) {
+    function addPlayer (client) {
         const { x, y } = options.playerPositions[0];
+        const player = Player.create({
+            name: client.getName()
+        });
 
         player.setPosition(x, y);
 
         game.addPlayer(player);
+
+        return player;
     }
 
     function start () {
