@@ -16,10 +16,7 @@ const config = {
             {
                 test: /.js$/,
                 loader: 'babel',
-                exclude: /node_modules/,
-                query: {
-                    presets: ['es2015', 'stage-0', 'react']
-                }
+                exclude: /node_modules/
             }, {
                 test: /\.css$/,
                 loader: 'style-loader!css-loader'
@@ -30,7 +27,6 @@ const config = {
             }
         ]
     },
-
     sassLoader: {
         includePaths: [path.resolve(__dirname, './scss')]
     }
