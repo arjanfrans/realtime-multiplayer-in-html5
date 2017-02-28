@@ -20,7 +20,7 @@ function ServerGame (Game, { options, networkTimestep }) {
         return network;
     }
 
-    function addPlayer (client) {
+    function createPlayer (client) {
         const { x, y } = options.playerPositions[0];
         const player = Player.create({
             name: client.getName()
@@ -54,7 +54,7 @@ function ServerGame (Game, { options, networkTimestep }) {
     game.setUpdateHandler(onUpdate);
 
     return Object.freeze(Object.assign({}, game, {
-        addPlayer,
+        createPlayer,
         getNetwork,
         start,
         stop

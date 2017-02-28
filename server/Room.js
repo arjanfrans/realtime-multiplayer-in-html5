@@ -44,7 +44,7 @@ function Room ({ owner, game }) {
         clients.add(client);
 
         if (game.isStarted()) {
-            const player = game.addPlayer(client);
+            const player = game.createPlayer(client);
 
             game.getNetwork().addClientPlayer(client, player);
 
@@ -79,7 +79,7 @@ function Room ({ owner, game }) {
 
     function startGame () {
         for (const client of clients) {
-            game.getNetwork().addClientPlayer(client, game.addPlayer(client));
+            game.getNetwork().addClientPlayer(client, game.createPlayer(client));
         }
 
         for (const client of clients) {
