@@ -1,7 +1,6 @@
 'use strict';
 
 const uuid = require('node-uuid');
-const Player = require('./ServerPlayer');
 const debug = require('debug');
 const log = debug('game:server/Room');
 
@@ -45,11 +44,8 @@ function Room ({ owner, game }) {
         clients.add(client);
 
         if (game.isStarted()) {
-            const player = Player.create({
-                name: client.getName()
-            });
+            const player = game.addPlayer(client);
 
-            game.addPlayer(player);
             game.getNetwork().addClientPlayer(client, player);
 
             log('joining game');
@@ -83,12 +79,7 @@ function Room ({ owner, game }) {
 
     function startGame () {
         for (const client of clients) {
-            const player = Player.create({
-                name: client.getName()
-            });
-
-            game.addPlayer(player);
-            game.getNetwork().addClientPlayer(client, player);
+            game.getNetwork().addClientPlayer(client, game.addPlayer(client));
         }
 
         for (const client of clients) {

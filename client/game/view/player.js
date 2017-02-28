@@ -22,7 +22,11 @@ function draw (ctx, player, options = {}) {
     x -= width / 2;
     y -= height / 2;
 
-    ctx.fillRect(x, y, width, height);
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(player.getAngle());
+    ctx.fillRect(-width, -height, width, height);
+    ctx.restore();
 
     const infoColor = options.infoColor || INFO_COLOR;
 
