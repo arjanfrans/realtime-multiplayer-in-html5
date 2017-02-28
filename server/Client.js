@@ -14,6 +14,10 @@ function Client ({ socket, name }) {
         socket.on(event, listener);
     }
 
+    function once (event, listener) {
+        socket.once(event, listener);
+    }
+
     function send (message) {
         socket.send(message);
     }
@@ -53,6 +57,7 @@ function Client ({ socket, name }) {
         isInRoom,
         emit,
         on,
+        once,
         send,
         setCurrentRoom,
         toJSON
