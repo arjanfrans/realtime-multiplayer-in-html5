@@ -1,6 +1,6 @@
 'use strict';
 
-const uuid = require('node-uuid');
+const uuid = require('uuid');
 const debug = require('debug');
 const log = debug('game:server/Room');
 

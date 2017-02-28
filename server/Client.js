@@ -1,6 +1,6 @@
 'use strict';
 
-const uuid = require('node-uuid');
+const uuid = require('uuid');
 
 function Client ({ socket, name }) {
     const id = uuid.v4();
