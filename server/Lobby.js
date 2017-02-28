@@ -1,14 +1,19 @@
 'use strict';
 
-const ServerGame = require('./ServerGame');
 const Room = require('./Room');
 
+const uuid = require('uuid');
 const debug = require('debug');
 const log = debug('game:server/server');
 
-function Lobby ({ config }) {
+function Lobby (resolveGame) {
     const rooms = new Map();
     const clients = new Map();
+    const id = uuid.v4();
+
+    function getId () {
+        return id;
+    }
 
     function startGame (room) {
         room.startGame();
@@ -17,10 +22,11 @@ function Lobby ({ config }) {
     function createGame (client) {
         const room = Room.create({
             owner: client,
-            game: ServerGame.create({ options: config })
+            game: resolveGame(client, id)
         });
 
         rooms.set(room.getId(), room);
+
         client.setCurrentRoom(room);
 
         client.emit('onJoinedRoom', { room: room.toJSON() });
@@ -34,7 +40,7 @@ function Lobby ({ config }) {
         }
     }
 
-    // we are requesting to kill a game in progress.
+    // We are requesting to kill a game in progress.
     function endGame (roomId) {
         const room = rooms.get(roomId);
 
@@ -117,7 +123,7 @@ function Lobby ({ config }) {
             }
         });
 
-        client.on('disconnect', function () {
+        client.once('disconnect', function () {
             log('\t socket.io:: client disconnected ' + client.getId());
 
             const room = client.getCurrentRoom();
@@ -139,7 +145,6 @@ function Lobby ({ config }) {
 
     function addClient (client) {
         clients.set(client.getId(), client);
-
         listenToClient(client);
     }
 
@@ -149,7 +154,8 @@ function Lobby ({ config }) {
 
     return {
         addClient,
-        removeClient
+        removeClient,
+        getId
     };
 }
 

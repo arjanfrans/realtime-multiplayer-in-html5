@@ -5,7 +5,7 @@ const drawBullets = require('./bullets');
 
 function Renderer (ctx, game, options = {}) {
     function draw () {
-        ctx.clearRect(0, 0, 720, 480);
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
         for (const player of game.getPlayers()) {
             drawPlayer(ctx, player, {

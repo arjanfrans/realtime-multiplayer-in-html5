@@ -3,11 +3,12 @@
   "version": "0.1.1",
   "description": "Realtime multiplayer in the browser",
   "author": "Arjan Frans <arjanfrans.com@gmail.com>",
+  "main": "./server/index.js",
   "scripts": {
     "start": "DEBUG=*game* nodemon ./server/index.js",
     "client": "webpack-dev-server --colors",
     "deploy": "./deploy.sh",
-    "build": "NODE_ENV=production webpack",
+    "build": "webpack -p",
     "lint": "eslint lib"
   },
   "license": "MIT",
@@ -16,26 +17,28 @@
     "url": "https://github.com/arjanfrans/realtime-multiplayer-in-html5"
   },
   "dependencies": {
-    "@arjanfrans/mainloop": "^2.0.0",
     "debug": "^2.2.0",
-    "node-uuid": "^1.4.7",
-    "react": "^15.1.0",
-    "react-dom": "^15.1.0",
     "socket.io": "^1.4.6",
-    "socket.io-client": "^1.4.6"
+    "uuid": "^3.0.1"
   },
   "devDependencies": {
+    "@arjanfrans/mainloop": "^2.0.0",
+    "babel-core": "^6.23.1",
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
-    "css-loader": "^0.23.1",
+    "css-loader": "^0.26.2",
     "eslint": "^2.11.1",
-    "node-sass": "^3.7.0",
+    "eslint-plugin-react": "^6.10.0",
+    "node-sass": "^4.5.0",
     "nodemon": "^1.9.2",
-    "sass-loader": "^3.2.0",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "sass-loader": "^6.0.2",
+    "socket.io-client": "^1.4.6",
     "style-loader": "^0.13.1",
-    "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1"
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.1"
   }
 }

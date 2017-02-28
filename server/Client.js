@@ -1,6 +1,6 @@
 'use strict';
 
-const uuid = require('node-uuid');
+const uuid = require('uuid');
 
 function Client ({ socket, name }) {
     const id = uuid.v4();
@@ -12,6 +12,10 @@ function Client ({ socket, name }) {
 
     function on (event, listener) {
         socket.on(event, listener);
+    }
+
+    function once (event, listener) {
+        socket.once(event, listener);
     }
 
     function send (message) {
@@ -53,6 +57,7 @@ function Client ({ socket, name }) {
         isInRoom,
         emit,
         on,
+        once,
         send,
         setCurrentRoom,
         toJSON

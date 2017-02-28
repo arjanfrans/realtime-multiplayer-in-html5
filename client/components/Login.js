@@ -41,7 +41,7 @@ class Login extends React.Component {
                                     type="text"
                                     name="name"
                                     required={ true }
-                                    minlength={ 1 }
+                                    minLength={ 1 }
                                     value={ this.state.name }
                                     onChange={ this.handleValueChange.bind(this) }
                                 />
@@ -56,7 +56,7 @@ class Login extends React.Component {
                                     type="text"
                                     name="server"
                                     required={ true }
-                                    minlength={ 1 }
+                                    minLength={ 1 }
                                     value={ this.state.server }
                                     onChange={ this.handleValueChange.bind(this) }
                                 />
