@@ -12,23 +12,33 @@ const config = {
         filename: 'bundle.js'
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /.js$/,
-                loader: 'babel',
+                loader: 'babel-loader',
                 exclude: /node_modules/
-            }, {
+            },
+            {
                 test: /\.css$/,
-                loader: 'style-loader!css-loader'
+                use: [
+                    'style-loader',
+                    'css-loader'
+                ]
             },
             {
                 test: /\.scss$/,
-                loaders: ['style', 'css', 'sass']
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            includePaths: [path.resolve(__dirname, './scss')]
+                        }
+                    },
+                ]
             }
         ]
-    },
-    sassLoader: {
-        includePaths: [path.resolve(__dirname, './scss')]
     }
 };
 
@@ -36,12 +46,14 @@ if (env === 'production') {
     config.plugins = [
         new webpack.DefinePlugin({
             'process.env': {
-                NODE_ENV: JSON.stringify('production')
+                NODE_ENV: 'production'
             }
         }),
         new webpack.optimize.UglifyJsPlugin({
             compress: {
-                warnings: true
+                warnings: true,
+                minimize: true,
+                sourceMap: true
             }
         })
     ];
